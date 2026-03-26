@@ -1,12 +1,20 @@
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
-import { BookOpen, BrainCircuit, GraduationCap, Target, CalendarDays, Award, Layers, PlaySquare } from "lucide-react";
+import { BookOpen, BrainCircuit, GraduationCap, Target, CalendarDays, Award, Layers, PlaySquare, CircleCheck, ClipboardList, Brain } from "lucide-react";
+import { getTotalCurrentAffairTopics } from "../lib/currentAffairs";
+import { useStudyProgress, getDueFlashcardIds } from "../lib/studyProgress";
+import { flashcardsData } from "../data/flashcards";
 
 export default function Dashboard() {
+  const { metrics, progress } = useStudyProgress();
+  const totalCurrentAffairs = getTotalCurrentAffairTopics();
+  const dueFlashcards = getDueFlashcardIds(progress, flashcardsData.map((card) => card.id)).length;
+  const caRemaining = Math.max(totalCurrentAffairs - metrics.caCompleted, 0);
+
   const stats = [
     { label: "Days Left", value: "300+", icon: CalendarDays, color: "text-orange-600", bg: "bg-orange-100" },
-    { label: "MCQs Solved", value: "120", icon: Target, color: "text-emerald-600", bg: "bg-emerald-100" },
-    { label: "Accuracy", value: "85%", icon: Award, color: "text-blue-600", bg: "bg-blue-100" },
+    { label: "MCQs Solved", value: String(metrics.totalQuizAttempted), icon: Target, color: "text-emerald-600", bg: "bg-emerald-100" },
+    { label: "Accuracy", value: `${metrics.quizAccuracy}%`, icon: Award, color: "text-blue-600", bg: "bg-blue-100" },
   ];
 
   const quickLinks = [
@@ -64,6 +72,35 @@ export default function Dashboard() {
               </motion.div>
             </Link>
           ))}
+        </div>
+      </section>
+
+      <section className="grid md:grid-cols-3 gap-4">
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+            <ClipboardList className="w-4 h-4" />
+            Daily Queue
+          </h3>
+          <p className="text-2xl font-bold text-slate-900 mt-2">{Math.min(5, caRemaining)} CA Topics</p>
+          <p className="text-sm text-slate-500 mt-1">Target for today</p>
+        </div>
+
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+            <Brain className="w-4 h-4" />
+            Flashcards Due
+          </h3>
+          <p className="text-2xl font-bold text-slate-900 mt-2">{dueFlashcards}</p>
+          <p className="text-sm text-slate-500 mt-1">Spaced revision cards</p>
+        </div>
+
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+          <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+            <CircleCheck className="w-4 h-4" />
+            CA Coverage
+          </h3>
+          <p className="text-2xl font-bold text-slate-900 mt-2">{metrics.caCompleted}/{totalCurrentAffairs}</p>
+          <p className="text-sm text-slate-500 mt-1">Topics revised overall</p>
         </div>
       </section>
 

@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { currentAffairsData } from "../data/currentAffairs";
-import { ChevronDown, ChevronUp, Calendar, BookOpen } from "lucide-react";
+import { ChevronDown, ChevronUp, Calendar, BookOpen, CircleCheck, Circle } from "lucide-react";
 import { cn } from "../lib/utils";
+import { getCurrentAffairTopicKey, getTotalCurrentAffairTopics } from "../lib/currentAffairs";
+import { useStudyProgress } from "../lib/studyProgress";
 
 export default function CurrentAffairs() {
+  const { progress, toggleCurrentAffairTopic } = useStudyProgress();
   const [expandedMonth, setExpandedMonth] = useState<string | null>(currentAffairsData[0].month);
+
+  const completedCount = Object.keys(progress.currentAffairsTopicReview).length;
+  const totalTopics = getTotalCurrentAffairTopics();
 
   return (
     <motion.div
@@ -19,11 +25,19 @@ export default function CurrentAffairs() {
           Current Affairs
         </h2>
         <p className="text-slate-500 mt-2">Comprehensive coverage of the last 15 months (Jan 2025 - Mar 2026).</p>
+        <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold bg-indigo-100 text-indigo-800">
+          Progress: {completedCount}/{totalTopics} topics revised
+        </div>
       </header>
 
       <div className="space-y-4">
         {currentAffairsData.map((data, idx) => {
           const isExpanded = expandedMonth === data.month;
+          const monthCompleted = data.topics.reduce((count, _topic, topicIdx) => {
+            const key = getCurrentAffairTopicKey(data.month, topicIdx);
+            return progress.currentAffairsTopicReview[key] ? count + 1 : count;
+          }, 0);
+
           return (
             <motion.div
               key={idx}
@@ -38,7 +52,10 @@ export default function CurrentAffairs() {
                   <div className="p-2 bg-indigo-100 text-indigo-600 rounded-lg">
                     <Calendar className="w-5 h-5" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-800">{data.month}</h3>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-800">{data.month}</h3>
+                    <p className="text-xs text-slate-500">{monthCompleted}/{data.topics.length} revised</p>
+                  </div>
                 </div>
                 {isExpanded ? (
                   <ChevronUp className="w-5 h-5 text-slate-500" />
@@ -67,6 +84,22 @@ export default function CurrentAffairs() {
                           <p className="text-slate-600 text-sm leading-relaxed pl-1">
                             {topic.content}
                           </p>
+                          <button
+                            onClick={() => toggleCurrentAffairTopic(getCurrentAffairTopicKey(data.month, tIdx))}
+                            className={cn(
+                              "flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full border transition-colors",
+                              progress.currentAffairsTopicReview[getCurrentAffairTopicKey(data.month, tIdx)]
+                                ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                                : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50",
+                            )}
+                          >
+                            {progress.currentAffairsTopicReview[getCurrentAffairTopicKey(data.month, tIdx)] ? (
+                              <CircleCheck className="w-4 h-4" />
+                            ) : (
+                              <Circle className="w-4 h-4" />
+                            )}
+                            Mark as revised
+                          </button>
                         </div>
                       ))}
                     </div>

@@ -3,13 +3,16 @@ import { motion, AnimatePresence } from "motion/react";
 import { mcqData } from "../data/mcqs";
 import { BrainCircuit, CheckCircle2, XCircle, ArrowRight, RotateCcw } from "lucide-react";
 import { cn } from "../lib/utils";
+import { useStudyProgress } from "../lib/studyProgress";
 
 export default function Quiz() {
+  const { metrics, markQuizSession } = useStudyProgress();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
+  const [sessionSaved, setSessionSaved] = useState(false);
 
   const question = mcqData[currentQuestion];
 
@@ -29,6 +32,10 @@ export default function Quiz() {
       setSelectedOption(null);
       setIsAnswered(false);
     } else {
+      if (!sessionSaved) {
+        markQuizSession(score, mcqData.length);
+        setSessionSaved(true);
+      }
       setShowResult(true);
     }
   };
@@ -39,6 +46,7 @@ export default function Quiz() {
     setIsAnswered(false);
     setScore(0);
     setShowResult(false);
+    setSessionSaved(false);
   };
 
   if (showResult) {
@@ -54,6 +62,9 @@ export default function Quiz() {
         <div>
           <h2 className="text-3xl font-bold text-slate-900">Quiz Completed!</h2>
           <p className="text-slate-500 mt-2">You scored {score} out of {mcqData.length}</p>
+          <p className="text-xs text-slate-500 mt-2">
+            Lifetime: {metrics.totalQuizCorrect}/{metrics.totalQuizAttempted} correct ({metrics.quizAccuracy}% accuracy)
+          </p>
         </div>
         <button
           onClick={handleRestart}
@@ -77,8 +88,10 @@ export default function Quiz() {
           <BrainCircuit className="w-8 h-8 text-rose-600" />
           Practice MCQs
         </h2>
-        <div className="text-sm font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
-          {currentQuestion + 1} / {mcqData.length}
+        <div className="text-sm font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full flex items-center gap-2">
+          <span>{currentQuestion + 1} / {mcqData.length}</span>
+          <span className="text-xs text-slate-400">•</span>
+          <span className="text-xs">{metrics.quizAccuracy}% acc</span>
         </div>
       </header>
 
