@@ -76,6 +76,9 @@ export default function CurrentAffairs() {
                       {data.topics.map((topic, tIdx) => (
                         <div key={tIdx} className="space-y-2">
                           <div className="flex items-center gap-2">
+                            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700">
+                              {new Date(topic.date).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
+                            </span>
                             <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-indigo-100 text-indigo-700">
                               {topic.category}
                             </span>

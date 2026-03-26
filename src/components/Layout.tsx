@@ -1,8 +1,11 @@
 import { Outlet, NavLink } from "react-router-dom";
-import { Home, BookOpen, BrainCircuit, GraduationCap, FileText, Layers, PlaySquare } from "lucide-react";
+import { Home, BookOpen, BrainCircuit, GraduationCap, FileText, Layers, PlaySquare, Moon, Sun } from "lucide-react";
 import { cn } from "../lib/utils";
+import { useTheme } from "../lib/theme";
 
 export default function Layout() {
+  const { isDark, toggleTheme } = useTheme();
+
   const navItems = [
     { to: "/", icon: Home, label: "Home" },
     { to: "/ca", icon: BookOpen, label: "Current Affairs" },
@@ -18,8 +21,20 @@ export default function Layout() {
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex flex-col w-64 fixed inset-y-0 left-0 bg-white border-r border-slate-200 z-50">
         <div className="p-6 border-b border-slate-200">
-          <h1 className="text-2xl font-bold text-indigo-700 tracking-tight">MHCET Prep '26</h1>
-          <p className="text-xs text-slate-500 mt-1">5-Year LLB Aspirants</p>
+          <div className="flex items-center justify-between gap-2">
+            <div>
+              <h1 className="text-2xl font-bold text-indigo-700 tracking-tight">MHCET Prep '26</h1>
+              <p className="text-xs text-slate-500 mt-1">5-Year LLB Aspirants</p>
+            </div>
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
+              aria-label="Toggle dark mode"
+              title="Toggle dark mode"
+            >
+              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
         <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           {navItems.map((item) => (
@@ -44,7 +59,17 @@ export default function Layout() {
 
       {/* Mobile Header */}
       <header className="md:hidden sticky top-0 z-40 bg-white border-b border-slate-200 px-4 py-3 shadow-sm">
-        <h1 className="text-xl font-bold text-indigo-700">MHCET Prep '26</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-bold text-indigo-700">MHCET Prep '26</h1>
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
+            aria-label="Toggle dark mode"
+            title="Toggle dark mode"
+          >
+            {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+        </div>
       </header>
 
       {/* Main Content */}

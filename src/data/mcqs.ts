@@ -158,5 +158,325 @@ export const mcqData = [
     options: ["Madhya Pradesh", "Gujarat", "Maharashtra", "Uttar Pradesh"],
     correctAnswer: 1,
     explanation: "The 19th Pravasi Bharatiya Divas was celebrated in Ahmedabad, Gujarat."
+  },
+  {
+    id: 21,
+    category: "Current Affairs",
+    question: "The Quad grouping consists of India, USA, Japan and which other country?",
+    options: ["South Korea", "Australia", "Vietnam", "Singapore"],
+    correctAnswer: 1,
+    explanation: "The Quad includes India, the United States, Japan, and Australia."
+  },
+  {
+    id: 22,
+    category: "Current Affairs",
+    question: "COP climate summits are primarily associated with which global issue?",
+    options: ["Maritime piracy", "Climate change", "Global taxation", "Space exploration"],
+    correctAnswer: 1,
+    explanation: "COP (Conference of the Parties) meetings focus on global climate change negotiations."
+  },
+  {
+    id: 23,
+    category: "Current Affairs",
+    question: "Which mission is associated with deep ocean exploration in India?",
+    options: ["Shukrayaan", "Gaganyaan", "Samudrayaan", "Adityayaan"],
+    correctAnswer: 2,
+    explanation: "Samudrayaan is India's deep ocean exploration mission."
+  },
+  {
+    id: 24,
+    category: "Current Affairs",
+    question: "Which event is generally known as the annual budget presentation of India?",
+    options: ["Economic Survey", "Union Budget", "Finance Commission Report", "NITI Dialogue"],
+    correctAnswer: 1,
+    explanation: "The Union Budget is India's annual financial statement presented in Parliament."
+  },
+  {
+    id: 25,
+    category: "Current Affairs",
+    question: "World Environment Day is observed every year on:",
+    options: ["5 June", "22 April", "16 September", "1 May"],
+    correctAnswer: 0,
+    explanation: "World Environment Day is observed on 5 June."
+  },
+  {
+    id: 26,
+    category: "GK - Polity",
+    question: "Which part of the Constitution contains Fundamental Rights?",
+    options: ["Part II", "Part III", "Part IV", "Part IVA"],
+    correctAnswer: 1,
+    explanation: "Fundamental Rights are provided under Part III of the Constitution."
+  },
+  {
+    id: 27,
+    category: "GK - Polity",
+    question: "Article 21 of the Constitution relates to:",
+    options: ["Freedom of speech", "Right to life and personal liberty", "Cultural rights", "Right to vote"],
+    correctAnswer: 1,
+    explanation: "Article 21 guarantees protection of life and personal liberty."
+  },
+  {
+    id: 28,
+    category: "GK - Polity",
+    question: "Who is known as the chief architect of the Indian Constitution?",
+    options: ["Jawaharlal Nehru", "Sardar Patel", "Dr. B.R. Ambedkar", "Rajendra Prasad"],
+    correctAnswer: 2,
+    explanation: "Dr. B.R. Ambedkar chaired the Drafting Committee and is called the architect of the Constitution."
+  },
+  {
+    id: 29,
+    category: "GK - Polity",
+    question: "Which Article empowers the Parliament to amend the Constitution?",
+    options: ["Article 352", "Article 356", "Article 368", "Article 370"],
+    correctAnswer: 2,
+    explanation: "Article 368 lays down the procedure for constitutional amendments."
+  },
+  {
+    id: 30,
+    category: "GK - Polity",
+    question: "How many houses are there in the Indian Parliament?",
+    options: ["One", "Two", "Three", "Four"],
+    correctAnswer: 1,
+    explanation: "Parliament has two houses: Lok Sabha and Rajya Sabha."
+  },
+  {
+    id: 31,
+    category: "GK - History",
+    question: "The Indian National Congress was founded in:",
+    options: ["1885", "1905", "1919", "1942"],
+    correctAnswer: 0,
+    explanation: "INC was founded in 1885."
+  },
+  {
+    id: 32,
+    category: "GK - History",
+    question: "Who embraced Buddhism after the Kalinga War?",
+    options: ["Chandragupta Maurya", "Ashoka", "Harsha", "Samudragupta"],
+    correctAnswer: 1,
+    explanation: "Ashoka embraced Buddhism after the Kalinga War."
+  },
+  {
+    id: 33,
+    category: "GK - History",
+    question: "Quit India Movement was launched in which month of 1942?",
+    options: ["January", "August", "October", "December"],
+    correctAnswer: 1,
+    explanation: "Quit India Movement was launched in August 1942."
+  },
+  {
+    id: 34,
+    category: "GK - History",
+    question: "Who founded the Mughal Empire in India?",
+    options: ["Humayun", "Akbar", "Babur", "Sher Shah"],
+    correctAnswer: 2,
+    explanation: "Babur founded the Mughal Empire after the First Battle of Panipat (1526)."
+  },
+  {
+    id: 35,
+    category: "GK - History",
+    question: "The Revolt of 1857 is also called:",
+    options: ["Swadeshi Movement", "Civil Disobedience", "First War of Independence", "Khilafat Movement"],
+    correctAnswer: 2,
+    explanation: "The Revolt of 1857 is popularly called the First War of Independence."
+  },
+  {
+    id: 36,
+    category: "GK - Geography",
+    question: "Which is the largest continent by area?",
+    options: ["Africa", "Asia", "Europe", "North America"],
+    correctAnswer: 1,
+    explanation: "Asia is the largest continent in the world."
+  },
+  {
+    id: 37,
+    category: "GK - Geography",
+    question: "Which is the largest ocean on Earth?",
+    options: ["Atlantic", "Indian", "Arctic", "Pacific"],
+    correctAnswer: 3,
+    explanation: "The Pacific Ocean is the largest ocean."
+  },
+  {
+    id: 38,
+    category: "GK - Geography",
+    question: "Which river is known as Dakshin Ganga?",
+    options: ["Krishna", "Godavari", "Narmada", "Kaveri"],
+    correctAnswer: 1,
+    explanation: "Godavari is popularly known as Dakshin Ganga."
+  },
+  {
+    id: 39,
+    category: "GK - Geography",
+    question: "Mount Everest is located in which mountain range?",
+    options: ["Andes", "Alps", "Himalayas", "Rockies"],
+    correctAnswer: 2,
+    explanation: "Mount Everest lies in the Himalayas."
+  },
+  {
+    id: 40,
+    category: "GK - Geography",
+    question: "How many states in India are crossed by the Tropic of Cancer?",
+    options: ["6", "7", "8", "9"],
+    correctAnswer: 2,
+    explanation: "The Tropic of Cancer passes through 8 Indian states."
+  },
+  {
+    id: 41,
+    category: "GK - Economics",
+    question: "RBI was established in which year?",
+    options: ["1935", "1947", "1950", "1969"],
+    correctAnswer: 0,
+    explanation: "RBI was established in 1935 and nationalized in 1949."
+  },
+  {
+    id: 42,
+    category: "GK - Economics",
+    question: "SEBI regulates which sector in India?",
+    options: ["Agriculture", "Stock market", "Railways", "Telecom"],
+    correctAnswer: 1,
+    explanation: "SEBI is the regulator of the securities (stock) market."
+  },
+  {
+    id: 43,
+    category: "GK - Economics",
+    question: "Inflation means:",
+    options: ["Decrease in production", "Rise in general price level", "Rise in exports only", "Currency demonetization"],
+    correctAnswer: 1,
+    explanation: "Inflation is the rise in the general level of prices over time."
+  },
+  {
+    id: 44,
+    category: "GK - Economics",
+    question: "Planning Commission was replaced by:",
+    options: ["Finance Commission", "NABARD", "NITI Aayog", "GST Council"],
+    correctAnswer: 2,
+    explanation: "Planning Commission was replaced by NITI Aayog in 2015."
+  },
+  {
+    id: 45,
+    category: "GK - Economics",
+    question: "GDP stands for:",
+    options: ["Gross Domestic Product", "General Development Policy", "Gross Demand Potential", "Government Debt Profile"],
+    correctAnswer: 0,
+    explanation: "GDP means Gross Domestic Product."
+  },
+  {
+    id: 46,
+    category: "GK - Science",
+    question: "Which organelle is known as the powerhouse of the cell?",
+    options: ["Nucleus", "Mitochondria", "Ribosome", "Golgi body"],
+    correctAnswer: 1,
+    explanation: "Mitochondria are known as the powerhouse of the cell."
+  },
+  {
+    id: 47,
+    category: "GK - Science",
+    question: "SI unit of force is:",
+    options: ["Joule", "Watt", "Newton", "Pascal"],
+    correctAnswer: 2,
+    explanation: "The SI unit of force is Newton."
+  },
+  {
+    id: 48,
+    category: "GK - Science",
+    question: "pH value of a neutral solution is:",
+    options: ["0", "7", "10", "14"],
+    correctAnswer: 1,
+    explanation: "A neutral solution has pH 7."
+  },
+  {
+    id: 49,
+    category: "GK - Science",
+    question: "Vitamin D deficiency causes:",
+    options: ["Scurvy", "Rickets", "Night blindness", "Anemia"],
+    correctAnswer: 1,
+    explanation: "Vitamin D deficiency can lead to rickets."
+  },
+  {
+    id: 50,
+    category: "GK - Science",
+    question: "What is the formula of carbon dioxide?",
+    options: ["CO", "CO2", "C2O", "CH4"],
+    correctAnswer: 1,
+    explanation: "Carbon dioxide has the chemical formula CO2."
+  },
+  {
+    id: 51,
+    category: "GK - Miscellaneous",
+    question: "Headquarters of the United Nations is in:",
+    options: ["Geneva", "Paris", "New York", "London"],
+    correctAnswer: 2,
+    explanation: "The UN headquarters is located in New York."
+  },
+  {
+    id: 52,
+    category: "GK - Miscellaneous",
+    question: "WHO headquarters is located at:",
+    options: ["Geneva", "Vienna", "Rome", "Brussels"],
+    correctAnswer: 0,
+    explanation: "WHO headquarters is in Geneva, Switzerland."
+  },
+  {
+    id: 53,
+    category: "GK - Miscellaneous",
+    question: "National Science Day in India is observed on:",
+    options: ["12 January", "28 February", "5 June", "8 March"],
+    correctAnswer: 1,
+    explanation: "National Science Day is observed on 28 February."
+  },
+  {
+    id: 54,
+    category: "GK - Miscellaneous",
+    question: "First President of India was:",
+    options: ["Dr. S. Radhakrishnan", "Dr. Rajendra Prasad", "Zakir Husain", "V.V. Giri"],
+    correctAnswer: 1,
+    explanation: "Dr. Rajendra Prasad was the first President of India."
+  },
+  {
+    id: 55,
+    category: "GK - Miscellaneous",
+    question: "SAARC headquarters is at:",
+    options: ["Kathmandu", "Dhaka", "New Delhi", "Colombo"],
+    correctAnswer: 0,
+    explanation: "SAARC headquarters is in Kathmandu, Nepal."
+  },
+  {
+    id: 56,
+    category: "Current Affairs",
+    question: "Which summit is linked with reform of multilateral development banks in recent discussions?",
+    options: ["BRICS only", "G20", "SAARC", "BIMSTEC"],
+    correctAnswer: 1,
+    explanation: "G20 discussions have prominently included reform of multilateral development banks."
+  },
+  {
+    id: 57,
+    category: "Current Affairs",
+    question: "Pravasi Bharatiya Divas is generally celebrated in January on:",
+    options: ["5th", "9th", "12th", "26th"],
+    correctAnswer: 1,
+    explanation: "Pravasi Bharatiya Divas is observed on 9 January."
+  },
+  {
+    id: 58,
+    category: "Current Affairs",
+    question: "Which area is most associated with Shukrayaan-1 mission objectives?",
+    options: ["Mars rover operations", "Venus study", "Solar flares only", "Lunar mining"],
+    correctAnswer: 1,
+    explanation: "Shukrayaan-1 is an ISRO mission aimed at studying Venus."
+  },
+  {
+    id: 59,
+    category: "Current Affairs",
+    question: "Digital infrastructure discussions in budget context are mainly linked with:",
+    options: ["Only highways", "Data systems and public digital services", "Only ports", "Only tourism"],
+    correctAnswer: 1,
+    explanation: "Digital infrastructure includes data networks, digital governance systems, and public service delivery platforms."
+  },
+  {
+    id: 60,
+    category: "Current Affairs",
+    question: "Aspirants should revise CA mostly for how many months for this section in your app plan?",
+    options: ["6 months", "9 months", "12 months", "15 months"],
+    correctAnswer: 3,
+    explanation: "This prep strategy focuses on last 15 months of current affairs coverage."
   }
 ];
