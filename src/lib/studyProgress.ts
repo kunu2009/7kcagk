@@ -17,6 +17,8 @@ export type QuizProgress = {
   totalAttempted: number;
   totalCorrect: number;
   lastSessionAt?: string;
+  byCategory: Record<string, { attempted: number; correct: number }>;
+  activityDays: string[];
 };
 
 export type StudyProgress = {
@@ -33,6 +35,8 @@ const defaultProgress: StudyProgress = {
     sessions: 0,
     totalAttempted: 0,
     totalCorrect: 0,
+    byCategory: {},
+    activityDays: [],
   },
   updatedAt: new Date(0).toISOString(),
 };
@@ -58,6 +62,8 @@ function loadProgress(): StudyProgress {
         totalAttempted: parsed.quiz?.totalAttempted ?? 0,
         totalCorrect: parsed.quiz?.totalCorrect ?? 0,
         lastSessionAt: parsed.quiz?.lastSessionAt,
+        byCategory: parsed.quiz?.byCategory ?? {},
+        activityDays: parsed.quiz?.activityDays ?? [],
       },
       updatedAt: parsed.updatedAt ?? safeNowIso(),
     };
@@ -122,6 +128,62 @@ export function getDueFlashcardIds(progress: StudyProgress, cardIds: string[], a
   });
 }
 
+function toDayKey(date: Date) {
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+export function getStreakInfo(activityDays: string[]) {
+  if (!activityDays.length) {
+    return { currentStreak: 0, longestStreak: 0 };
+  }
+
+  const daySet = new Set(activityDays);
+  const today = new Date();
+
+  let currentStreak = 0;
+  const cursor = new Date(today);
+
+  while (daySet.has(toDayKey(cursor))) {
+    currentStreak += 1;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+
+  const sorted = [...daySet].sort();
+  let longestStreak = 1;
+  let run = 1;
+  for (let i = 1; i < sorted.length; i += 1) {
+    const prev = new Date(sorted[i - 1]);
+    const next = new Date(sorted[i]);
+    const delta = Math.round((next.getTime() - prev.getTime()) / (24 * 60 * 60 * 1000));
+    if (delta === 1) {
+      run += 1;
+      longestStreak = Math.max(longestStreak, run);
+    } else {
+      run = 1;
+    }
+  }
+
+  return { currentStreak, longestStreak };
+}
+
+export function getRecentActivity(activityDays: string[], days = 21) {
+  const daySet = new Set(activityDays);
+  const out: { date: string; active: boolean }[] = [];
+  const today = new Date();
+
+  for (let i = days - 1; i >= 0; i -= 1) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    const key = toDayKey(d);
+    out.push({ date: key, active: daySet.has(key) });
+  }
+
+  return out;
+}
+
 export function useStudyProgress() {
   const [progress, setProgress] = useState<StudyProgress>(defaultProgress);
   const [loaded, setLoaded] = useState(false);
@@ -156,15 +218,39 @@ export function useStudyProgress() {
     });
   }, [update]);
 
-  const markQuizSession = useCallback((correct: number, attempted: number) => {
+  const markQuizSession = useCallback((
+    correct: number,
+    attempted: number,
+    categoryBreakdown?: Record<string, { attempted: number; correct: number }>,
+  ) => {
     update((current) => ({
       ...current,
-      quiz: {
-        sessions: current.quiz.sessions + 1,
-        totalAttempted: current.quiz.totalAttempted + attempted,
-        totalCorrect: current.quiz.totalCorrect + correct,
-        lastSessionAt: safeNowIso(),
-      },
+      quiz: (() => {
+        const byCategory = { ...current.quiz.byCategory };
+        if (categoryBreakdown) {
+          for (const [category, data] of Object.entries(categoryBreakdown)) {
+            const prev = byCategory[category] ?? { attempted: 0, correct: 0 };
+            byCategory[category] = {
+              attempted: prev.attempted + data.attempted,
+              correct: prev.correct + data.correct,
+            };
+          }
+        }
+
+        const todayKey = toDayKey(new Date());
+        const activitySet = new Set(current.quiz.activityDays);
+        activitySet.add(todayKey);
+        const activityDays = [...activitySet].sort().slice(-180);
+
+        return {
+          sessions: current.quiz.sessions + 1,
+          totalAttempted: current.quiz.totalAttempted + attempted,
+          totalCorrect: current.quiz.totalCorrect + correct,
+          lastSessionAt: safeNowIso(),
+          byCategory,
+          activityDays,
+        };
+      })(),
     }));
   }, [update]);
 
@@ -183,6 +269,21 @@ export function useStudyProgress() {
     const quizAccuracy = progress.quiz.totalAttempted
       ? Math.round((progress.quiz.totalCorrect / progress.quiz.totalAttempted) * 100)
       : 0;
+    const streak = getStreakInfo(progress.quiz.activityDays);
+    const categoryEntries = Object.entries(progress.quiz.byCategory) as Array<[
+      string,
+      { attempted: number; correct: number }
+    ]>;
+
+    const weakCategories = categoryEntries
+      .filter(([, s]) => s.attempted >= 5)
+      .map(([category, s]) => ({
+        category,
+        attempted: s.attempted,
+        correct: s.correct,
+        accuracy: s.attempted ? Math.round((s.correct / s.attempted) * 100) : 0,
+      }))
+      .sort((a, b) => a.accuracy - b.accuracy);
 
     return {
       caCompleted,
@@ -190,6 +291,9 @@ export function useStudyProgress() {
       totalQuizAttempted: progress.quiz.totalAttempted,
       totalQuizCorrect: progress.quiz.totalCorrect,
       quizSessions: progress.quiz.sessions,
+      weakCategories,
+      currentStreak: streak.currentStreak,
+      longestStreak: streak.longestStreak,
     };
   }, [progress]);
 

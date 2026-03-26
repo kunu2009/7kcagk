@@ -1,8 +1,8 @@
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
-import { BookOpen, BrainCircuit, GraduationCap, Target, CalendarDays, Award, Layers, PlaySquare, CircleCheck, ClipboardList, Brain } from "lucide-react";
+import { BookOpen, BrainCircuit, GraduationCap, Target, CalendarDays, Award, Layers, PlaySquare, CircleCheck, ClipboardList, Brain, Flame } from "lucide-react";
 import { getTotalCurrentAffairTopics } from "../lib/currentAffairs";
-import { useStudyProgress, getDueFlashcardIds } from "../lib/studyProgress";
+import { useStudyProgress, getDueFlashcardIds, getRecentActivity } from "../lib/studyProgress";
 import { flashcardsData } from "../data/flashcards";
 
 export default function Dashboard() {
@@ -10,6 +10,8 @@ export default function Dashboard() {
   const totalCurrentAffairs = getTotalCurrentAffairTopics();
   const dueFlashcards = getDueFlashcardIds(progress, flashcardsData.map((card) => card.id)).length;
   const caRemaining = Math.max(totalCurrentAffairs - metrics.caCompleted, 0);
+  const activity = getRecentActivity(progress.quiz.activityDays, 21);
+  const weakTopics = metrics.weakCategories.slice(0, 3);
 
   const stats = [
     { label: "Days Left", value: "300+", icon: CalendarDays, color: "text-orange-600", bg: "bg-orange-100" },
@@ -96,12 +98,52 @@ export default function Dashboard() {
 
         <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
           <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
-            <CircleCheck className="w-4 h-4" />
-            CA Coverage
+            <Flame className="w-4 h-4 text-orange-500" />
+            Study Streak
           </h3>
-          <p className="text-2xl font-bold text-slate-900 mt-2">{metrics.caCompleted}/{totalCurrentAffairs}</p>
-          <p className="text-sm text-slate-500 mt-1">Topics revised overall</p>
+          <p className="text-2xl font-bold text-slate-900 mt-2">{metrics.currentStreak} days</p>
+          <p className="text-sm text-slate-500 mt-1">Best: {metrics.longestStreak} days</p>
         </div>
+      </section>
+
+      <section className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+            <CircleCheck className="w-4 h-4" />
+            21-Day Activity Calendar
+          </h3>
+          <span className="text-xs text-slate-500">Recent consistency map</span>
+        </div>
+        <div className="grid grid-cols-7 gap-2">
+          {activity.map((cell) => (
+            <div
+              key={cell.date}
+              title={cell.date}
+              className={
+                "h-8 rounded-md border " +
+                (cell.active
+                  ? "bg-emerald-500 border-emerald-500"
+                  : "bg-slate-100 border-slate-200")
+              }
+            />
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-3">
+        <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">Weak Topics (Auto-Detected)</h3>
+        {weakTopics.length === 0 ? (
+          <p className="text-sm text-slate-500">Need at least a few category-wise attempts to detect weak areas. Keep practicing!</p>
+        ) : (
+          <div className="grid md:grid-cols-3 gap-3">
+            {weakTopics.map((topic) => (
+              <div key={topic.category} className="rounded-xl border border-rose-200 bg-rose-50 p-3">
+                <p className="text-sm font-bold text-rose-800">{topic.category}</p>
+                <p className="text-xs text-rose-700 mt-1">Accuracy: {topic.accuracy}% ({topic.correct}/{topic.attempted})</p>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Daily Tip */}

@@ -1,4 +1,20 @@
-export const mcqData = [
+import { currentAffairsData } from "./currentAffairs";
+import { gkData } from "./gk";
+
+export type MCQDifficulty = "easy" | "medium" | "hard";
+
+export type MCQItem = {
+  id: number;
+  category: string;
+  topic?: string;
+  difficulty?: MCQDifficulty;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+};
+
+const coreMcqData: MCQItem[] = [
   {
     id: 1,
     category: "Current Affairs",
@@ -480,3 +496,133 @@ export const mcqData = [
     explanation: "This prep strategy focuses on last 15 months of current affairs coverage."
   }
 ];
+
+const monthLabels = currentAffairsData.map((m) => m.month);
+const categoryPool = ["Legal", "National", "International", "Economy", "Science & Tech", "Sports", "Environment", "Policy", "Governance", "Awards", "Education", "Polity"];
+
+function getDistractorMonths(correctMonth: string) {
+  const others = monthLabels.filter((m) => m !== correctMonth).slice(0, 3);
+  return [correctMonth, ...others];
+}
+
+function quarterFromMonth(monthLabel: string) {
+  const [monthName] = monthLabel.split(" ");
+  const map: Record<string, string> = {
+    January: "Q1",
+    February: "Q1",
+    March: "Q1",
+    April: "Q2",
+    May: "Q2",
+    June: "Q2",
+    July: "Q3",
+    August: "Q3",
+    September: "Q3",
+    October: "Q4",
+    November: "Q4",
+    December: "Q4",
+  };
+  return map[monthName] ?? "Q1";
+}
+
+const generatedFromCurrentAffairs: Omit<MCQItem, "id">[] = currentAffairsData.flatMap((monthBlock) => {
+  const quarter = quarterFromMonth(monthBlock.month);
+  return monthBlock.topics.flatMap((topic) => {
+    const year = new Date(topic.date).getFullYear().toString();
+    const monthOptions = getDistractorMonths(monthBlock.month);
+    const categoryOptions = [
+      topic.category,
+      ...categoryPool.filter((c) => c !== topic.category).slice(0, 3),
+    ];
+
+    const quarterOptions = [quarter, "Q1", "Q2", "Q3", "Q4"].filter((v, i, arr) => arr.indexOf(v) === i).slice(0, 4);
+    const yearOptions = [year, "2024", "2025", "2026", "2027"].filter((v, i, arr) => arr.indexOf(v) === i).slice(0, 4);
+
+    return [
+      {
+        category: "Current Affairs - Generated",
+        topic: topic.category,
+        difficulty: "medium" as MCQDifficulty,
+        question: `The event \"${topic.title}\" is from which month of coverage?`,
+        options: monthOptions,
+        correctAnswer: 0,
+        explanation: `This event is listed in ${monthBlock.month} current affairs.`
+      },
+      {
+        category: "Current Affairs - Generated",
+        topic: topic.category,
+        difficulty: "easy" as MCQDifficulty,
+        question: `\"${topic.title}\" best belongs to which category?`,
+        options: categoryOptions,
+        correctAnswer: 0,
+        explanation: `The event is tracked under the ${topic.category} category.`
+      },
+      {
+        category: "Current Affairs - Generated",
+        topic: topic.category,
+        difficulty: "easy" as MCQDifficulty,
+        question: `In which year did this event occur: \"${topic.title}\"?`,
+        options: yearOptions,
+        correctAnswer: 0,
+        explanation: `The recorded date for this event falls in ${year}.`
+      },
+      {
+        category: "Current Affairs - Generated",
+        topic: topic.category,
+        difficulty: "hard" as MCQDifficulty,
+        question: `\"${topic.title}\" falls in which quarter (${new Date(topic.date).getFullYear()})?`,
+        options: quarterOptions,
+        correctAnswer: 0,
+        explanation: `The month ${monthBlock.month.split(" ")[0]} is in ${quarter}.`
+      },
+    ];
+  });
+});
+
+const generatedFromGk: Omit<MCQItem, "id">[] = gkData.flatMap((categoryBlock) =>
+  categoryBlock.topics.flatMap((topic) => {
+    const categoryOptions = [
+      categoryBlock.category,
+      ...gkData.map((g) => g.category).filter((c) => c !== categoryBlock.category).slice(0, 3),
+    ];
+
+    return [
+      {
+        category: "GK - Generated",
+        topic: categoryBlock.category,
+        difficulty: "medium" as MCQDifficulty,
+        question: `\"${topic.title}\" is mainly studied under which GK section?`,
+        options: categoryOptions,
+        correctAnswer: 0,
+        explanation: `${topic.title} is covered under ${categoryBlock.category}.`,
+      },
+      {
+        category: "GK - Generated",
+        topic: categoryBlock.category,
+        difficulty: "hard" as MCQDifficulty,
+        question: `For MHCET law prep, \"${topic.title}\" is most useful for strengthening which area?`,
+        options: [
+          `${categoryBlock.category} fundamentals`,
+          "Only sports current affairs",
+          "Only legal drafting format",
+          "Essay writing style",
+        ],
+        correctAnswer: 0,
+        explanation: `This topic builds conceptual clarity in ${categoryBlock.category} fundamentals.`,
+      },
+    ];
+  })
+);
+
+const normalizedCore = coreMcqData.map((q, idx) => ({
+  ...q,
+  id: idx + 1,
+  difficulty: q.difficulty ?? (idx < 20 ? "easy" : idx < 45 ? "medium" : "hard"),
+  topic: q.topic ?? q.category.replace(/^GK -\s*/, "").replace(/^Current Affairs\s*-\s*/, "").trim(),
+}));
+
+const generatedAll = [...generatedFromCurrentAffairs, ...generatedFromGk].map((q, idx) => ({
+  ...q,
+  id: normalizedCore.length + idx + 1,
+}));
+
+export const mcqData: MCQItem[] = [...normalizedCore, ...generatedAll];
