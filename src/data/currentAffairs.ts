@@ -3,6 +3,10 @@ export type CurrentAffairTopic = {
   title: string;
   content: string;
   category: string;
+  newsType: string;
+  keyPoints: string[];
+  whyItMatters: string;
+  examFocus: string;
 };
 
 export type CurrentAffairMonth = {
@@ -10,7 +14,83 @@ export type CurrentAffairMonth = {
   topics: CurrentAffairTopic[];
 };
 
-export const currentAffairsData: CurrentAffairMonth[] = [
+type RawCurrentAffairTopic = {
+  date: string;
+  title: string;
+  content: string;
+  category: string;
+};
+
+type RawCurrentAffairMonth = {
+  month: string;
+  topics: RawCurrentAffairTopic[];
+};
+
+function inferNewsType(category: string, title: string) {
+  const t = title.toLowerCase();
+  if (t.includes("supreme court") || t.includes("cji") || t.includes("legal") || t.includes("judicial") || category.toLowerCase() === "legal") {
+    return "Judgment / Legal Update";
+  }
+  if (t.includes("budget") || category.toLowerCase() === "economy") {
+    return "Economy & Budget";
+  }
+  if (t.includes("summit") || t.includes("cop") || t.includes("g7") || t.includes("g20") || t.includes("quad") || t.includes("brics")) {
+    return "International Relations";
+  }
+  if (t.includes("mission") || t.includes("isro") || t.includes("digital") || t.includes("cyber") || t.includes("semiconductor") || category.toLowerCase() === "science & tech") {
+    return "Science, Tech & Innovation";
+  }
+  if (t.includes("award") || t.includes("nobel") || t.includes("grammy") || category.toLowerCase() === "awards") {
+    return "Awards & Honours";
+  }
+  if (t.includes("olympics") || t.includes("wimbledon") || t.includes("open") || t.includes("wpl") || category.toLowerCase() === "sports") {
+    return "Sports Update";
+  }
+  if (t.includes("policy") || t.includes("framework") || category.toLowerCase() === "policy") {
+    return "Policy & Governance";
+  }
+  return "National & Governance";
+}
+
+function inferWhyItMatters(category: string, newsType: string) {
+  const c = category.toLowerCase();
+  if (c === "legal" || newsType === "Judgment / Legal Update") {
+    return "Important for legal aptitude: courts, constitutional interpretation, citizen rights, and justice-delivery reforms.";
+  }
+  if (c === "international") {
+    return "High-value for current affairs: India’s global partnerships, multilateral platforms, and treaty-level discussions.";
+  }
+  if (c === "economy") {
+    return "Frequently asked in exam prep: budget priorities, inflation, policy impact, and economic governance.";
+  }
+  if (c === "science & tech") {
+    return "Useful for innovation-based questions, mission objectives, and self-reliance themes in strategic sectors.";
+  }
+  if (c === "sports") {
+    return "Sports events are common short factual MCQs (event, host, year, and notable outcomes).";
+  }
+  return "Supports broad GK and CA accuracy through facts, institutions, and policy relevance.";
+}
+
+function inferExamFocus(month: string, title: string, category: string) {
+  return `Exam focus: remember month (${month}), event title (${title}), and category (${category}) for direct MCQs.`;
+}
+
+function toKeyPoints(content: string) {
+  const pieces = content
+    .split(".")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .slice(0, 3)
+    .map((s) => (s.endsWith(".") ? s : `${s}.`));
+
+  if (!pieces.length) {
+    return ["Read this item once for context and once for factual recall."];
+  }
+  return pieces;
+}
+
+const rawCurrentAffairsData: RawCurrentAffairMonth[] = [
   {
     month: "March 2026",
     topics: [
@@ -507,3 +587,17 @@ export const currentAffairsData: CurrentAffairMonth[] = [
     ],
   },
 ];
+
+export const currentAffairsData: CurrentAffairMonth[] = rawCurrentAffairsData.map((monthBlock) => ({
+  ...monthBlock,
+  topics: monthBlock.topics.map((topic) => {
+    const newsType = inferNewsType(topic.category, topic.title);
+    return {
+      ...topic,
+      newsType,
+      keyPoints: toKeyPoints(topic.content),
+      whyItMatters: inferWhyItMatters(topic.category, newsType),
+      examFocus: inferExamFocus(monthBlock.month, topic.title, topic.category),
+    };
+  }),
+}));
