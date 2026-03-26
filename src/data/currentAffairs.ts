@@ -557,32 +557,214 @@ const rawCurrentAffairsData: RawCurrentAffairMonth[] = [
     month: "January 2025",
     topics: [
       {
+        date: "2025-01-30",
+        title: "Judicial capacity roadmap discussed at national conference",
+        content:
+          "A national conference on judicial administration emphasized reducing pendency through digital case-flow systems, virtual hearing support, and targeted court infrastructure upgrades.",
+        category: "Legal",
+      },
+      {
+        date: "2025-01-29",
+        title: "Public health data interoperability standards updated",
+        content:
+          "Authorities published new implementation guidance for interoperable health records, consent-linked access, and institutional accountability for secure data exchange.",
+        category: "Science & Tech",
+      },
+      {
         date: "2025-01-28",
         title: "Republic Day parade highlights women-led contingents",
         content:
-          "The event featured themes of constitutional patriotism, defense modernization, and social inclusion.",
+          "The event featured themes of constitutional patriotism, defense modernization, and social inclusion, with notable focus on women-led units and indigenous capability.",
         category: "National",
+      },
+      {
+        date: "2025-01-27",
+        title: "Rural legal awareness drives scaled across districts",
+        content:
+          "Legal literacy camps were expanded to cover rights awareness, legal aid access, and grievance mechanisms for underserved populations in district clusters.",
+        category: "Legal",
+      },
+      {
+        date: "2025-01-26",
+        title: "Constitutional values outreach marked on Republic Day",
+        content:
+          "Educational institutions and civic bodies hosted constitutional awareness sessions covering rights, duties, federal design, and democratic participation.",
+        category: "Polity",
+      },
+      {
+        date: "2025-01-25",
+        title: "National voter enrollment campaign enters university phase",
+        content:
+          "Election officials expanded first-time voter enrollment and digital verification support in colleges, focusing on accuracy and participation.",
+        category: "National",
+      },
+      {
+        date: "2025-01-24",
+        title: "State startup facilitation portals receive compliance upgrades",
+        content:
+          "Multiple states introduced simplified filing workflows, legal templates, and timeline-based compliance reminders for early-stage enterprises.",
+        category: "Economy",
+      },
+      {
+        date: "2025-01-23",
+        title: "Inter-ministerial panel reviews cybercrime reporting framework",
+        content:
+          "The review focused on response-time benchmarks, digital evidence handling, and victim-support pathways in cyber fraud cases.",
+        category: "Policy",
+      },
+      {
+        date: "2025-01-22",
+        title: "Pravasi Bharatiya engagement sessions stress innovation links",
+        content:
+          "Sessions explored diaspora-led capital, mentorship channels, and strategic knowledge partnerships for domestic industry and education sectors.",
+        category: "National",
+      },
+      {
+        date: "2025-01-21",
+        title: "National mediation ecosystem consultation progresses",
+        content:
+          "Stakeholders discussed institutional mediation capacity, pre-litigation settlement models, and training architecture for dispute resolution professionals.",
+        category: "Legal",
       },
       {
         date: "2025-01-20",
         title: "Australian Open delivers major ranking outcomes",
         content:
-          "Top-seeded performances shaped early-season global tennis narratives.",
+          "Top-seeded performances shaped early-season global tennis narratives, with focus on consistency, tactical depth, and ranking impacts.",
         category: "Sports",
+      },
+      {
+        date: "2025-01-19",
+        title: "Urban mobility policy pilots expanded in metro corridors",
+        content:
+          "Pilot plans emphasized multimodal integration, smart-ticketing interoperability, and commuter safety benchmarks.",
+        category: "Governance",
+      },
+      {
+        date: "2025-01-18",
+        title: "Women-led SHG market access program receives logistics support",
+        content:
+          "Program upgrades included digital cataloging, packaging compliance, and route optimization support for last-mile delivery channels.",
+        category: "Economy",
+      },
+      {
+        date: "2025-01-17",
+        title: "Green municipal financing workshop held for local bodies",
+        content:
+          "City administrators reviewed climate budgeting, green bonds, and transparent project-monitoring frameworks for urban resilience.",
+        category: "Environment",
+      },
+      {
+        date: "2025-01-16",
+        title: "Legal aid week focuses on rights-based service delivery",
+        content:
+          "Awareness activities highlighted legal aid eligibility, helpline access, and procedural support for vulnerable communities.",
+        category: "Legal",
+      },
+      {
+        date: "2025-01-15",
+        title: "National skilling dashboard integrates industry demand data",
+        content:
+          "Updated dashboards mapped local skill demand with training pathways to improve employability and placement planning.",
+        category: "Economy",
+      },
+      {
+        date: "2025-01-14",
+        title: "Digital governance standards released for grievance redress",
+        content:
+          "Guidelines emphasized multilingual submissions, escalation timelines, and audit trails for improved citizen service accountability.",
+        category: "Governance",
       },
       {
         date: "2025-01-13",
         title: "Constitution literacy campaign starts in universities",
         content:
-          "Law and non-law institutions began public seminars on rights, duties, and federal structure basics.",
+          "Law and non-law institutions began public seminars on rights, duties, and federal structure basics, boosting constitutional awareness among youth.",
         category: "Polity",
+      },
+      {
+        date: "2025-01-12",
+        title: "National science communication initiative launched for schools",
+        content:
+          "New modules for practical STEM engagement were introduced to improve conceptual learning and innovation orientation.",
+        category: "Science & Tech",
+      },
+      {
+        date: "2025-01-11",
+        title: "High-level review on inflation-sensitive commodities held",
+        content:
+          "The review assessed supply-chain bottlenecks, storage efficiency, and market intervention triggers for essential commodities.",
+        category: "Economy",
+      },
+      {
+        date: "2025-01-10",
+        title: "District court digitization progress report released",
+        content:
+          "The report highlighted e-filing adoption, hybrid hearing readiness, and phased rollout priorities for record digitization.",
+        category: "Legal",
+      },
+      {
+        date: "2025-01-09",
+        title: "Diaspora day discussions emphasize innovation partnerships",
+        content:
+          "Policy sessions explored cross-border startup collaboration, R&D mentorship, and investment facilitation channels.",
+        category: "International",
+      },
+      {
+        date: "2025-01-08",
+        title: "Semiconductor workforce initiative announced",
+        content:
+          "A capacity-building initiative was launched for chip design and fabrication-linked technical skills in strategic institutes.",
+        category: "Science & Tech",
+      },
+      {
+        date: "2025-01-07",
+        title: "National mission on clean rivers reviews city action plans",
+        content:
+          "Review meetings assessed sewage treatment milestones, quality monitoring data, and implementation bottlenecks.",
+        category: "Environment",
       },
       {
         date: "2025-01-06",
         title: "Digital payments security advisory issued",
         content:
-          "Regulators urged stronger authentication practices and fraud-reporting awareness for consumers.",
+          "Regulators urged stronger authentication practices, fraud-reporting awareness, and digital transaction hygiene for consumers.",
         category: "Economy",
+      },
+      {
+        date: "2025-01-05",
+        title: "National road safety enforcement week begins",
+        content:
+          "Authorities launched integrated awareness and enforcement drives with real-time monitoring and high-risk corridor mapping.",
+        category: "National",
+      },
+      {
+        date: "2025-01-04",
+        title: "Policy dialogue on data protection compliance held",
+        content:
+          "Stakeholders reviewed consent architecture, fiduciary obligations, and enforcement considerations for digital platforms.",
+        category: "Policy",
+      },
+      {
+        date: "2025-01-03",
+        title: "Higher education quality index update released",
+        content:
+          "The update tracked outcomes in accreditation quality, research engagement, and student support systems.",
+        category: "Education",
+      },
+      {
+        date: "2025-01-02",
+        title: "National logistics platform adds multimodal tracking",
+        content:
+          "Platform enhancements enabled better shipment visibility across rail-road-port networks and improved delivery predictability.",
+        category: "Economy",
+      },
+      {
+        date: "2025-01-01",
+        title: "New year governance brief outlines reform priorities",
+        content:
+          "The annual governance brief highlighted priorities in justice delivery, service digitization, skilling, and institutional coordination.",
+        category: "Governance",
       },
     ],
   },
