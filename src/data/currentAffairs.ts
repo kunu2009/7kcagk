@@ -49,7 +49,7 @@ export const currentAffairsData = [
     topics: [
       {
         title: "COP30 Climate Summit in Brazil",
-        content: "The UN Climate Change Conference (COP30) was held in BelÃ©m, Brazil. Nations agreed on a new binding treaty to halt deforestation by 2030 and increased climate finance commitments.",
+        content: "The UN Climate Change Conference (COP30) was held in Belém, Brazil. Nations agreed on a new binding treaty to halt deforestation by 2030 and increased climate finance commitments.",
         category: "International"
       },
       {

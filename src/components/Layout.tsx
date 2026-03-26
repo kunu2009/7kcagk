@@ -65,8 +65,12 @@ export default function Layout() {
               )
             }
           >
-            <item.icon className={cn("w-5 h-5", isActive && "fill-indigo-100")} />
-            <span className="text-[10px] font-medium truncate w-full text-center px-1">{item.label}</span>
+            {({ isActive }) => (
+              <>
+                <item.icon className={cn("w-5 h-5", isActive && "fill-indigo-100")} />
+                <span className="text-[10px] font-medium truncate w-full text-center px-1">{item.label}</span>
+              </>
+            )}
           </NavLink>
         ))}
       </nav>

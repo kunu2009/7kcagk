@@ -17,7 +17,11 @@ export default defineConfig(({mode}) => {
           name: 'MHCET LLB 2026 Prep',
           short_name: 'MHCET Prep',
           description: 'Current Affairs & GK for MHCET 5-year LLB 2026',
+          start_url: '/',
+          scope: '/',
+          display: 'standalone',
           theme_color: '#ffffff',
+          background_color: '#f8fafc',
           icons: [
             {
               src: 'pwa-192x192.png',
@@ -30,7 +34,12 @@ export default defineConfig(({mode}) => {
               type: 'image/png'
             }
           ]
-        }
+        },
+        workbox: {
+          navigateFallback: '/index.html',
+          cleanupOutdatedCaches: true,
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,webmanifest}'],
+        },
       })
     ],
     define: {

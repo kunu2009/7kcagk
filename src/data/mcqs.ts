@@ -13,7 +13,7 @@ export const mcqData = [
     question: "Which country hosted the COP30 Climate Summit in December 2025?",
     options: ["India", "Brazil", "United Arab Emirates", "United Kingdom"],
     correctAnswer: 1,
-    explanation: "The UN Climate Change Conference (COP30) was held in BelÃ©m, Brazil, focusing on deforestation and climate finance."
+    explanation: "The UN Climate Change Conference (COP30) was held in Belém, Brazil, focusing on deforestation and climate finance."
   },
   {
     id: 3,
@@ -141,7 +141,7 @@ export const mcqData = [
     question: "Which imaginary line divides India into almost two equal parts?",
     options: ["Equator", "Tropic of Cancer", "Tropic of Capricorn", "Prime Meridian"],
     correctAnswer: 1,
-    explanation: "The Tropic of Cancer (23.5Â° N) passes through 8 states in India, dividing it into almost two equal halves."
+    explanation: "The Tropic of Cancer (23.5° N) passes through 8 states in India, dividing it into almost two equal halves."
   },
   {
     id: 19,
